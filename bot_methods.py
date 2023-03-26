@@ -12,7 +12,7 @@ bot = TeleBot(Config.BOT_TOKEN)
 def start_message_handler(message: types.Message):
     bot.send_message(
         chat_id=message.chat.id,
-        text="Напиши мне URL-ссылки:) В ответ я пришлю ее удобную короткую версию. Например: \nhttps://www.google.com/?hl=ru "
+        text="Напиши мне URL-ссылки:) В ответ я пришлю ее удобную короткую версию. Пример ссылки для меня: \nhttps://www.google.com/?hl=ru "
     )
 
 
