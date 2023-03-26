@@ -7,3 +7,4 @@ env.read_env()
 
 class Config(Enum):
     TOKEN = env.str('TOKEN')
+    LOG_LEVEL = env.str('LOG_LEVEL')

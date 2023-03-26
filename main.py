@@ -1,25 +1,29 @@
+import logging
+
 from telebot import TeleBot, types
 from config import Config
 from clck_api import shorten_url
+from validators import is_link_ok
 
 bot = TeleBot(Config.TOKEN.value, parse_mode='html')
 
 
-# обработчик команды '/start'
 @bot.message_handler(commands=['start'])
 def start_message_handler(message: types.Message):
-    # отправляем ответ на команду '/start'
-    # не забываем прикрепить объект клавиатуры к сообщению
     bot.send_message(
         chat_id=message.chat.id,
         text="Привет!\nНапиши мне ссылку, и я верну тебе удобную короткую ссылку:) "
     )
 
 
-# обработчик всех остальных сообщений
 @bot.message_handler()
 def message_handler(message: types.Message):
-    if message.text:
+    logging.log(
+        level=logging.DEBUG,
+        msg=f"Пользователь c uid {message.id} прислал сообщение {message.text} {message.message_id}"
+    )
+
+    if message.text and is_link_ok(message.text):
         text = shorten_url(message.text)
     else:
         text = "Не понимаю тебя :("
@@ -32,4 +36,5 @@ def main():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=Config.LOG_LEVEL.value)
     main()
