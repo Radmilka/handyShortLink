@@ -9,6 +9,6 @@ def shorten_url(url):
         response.raise_for_status()
         short_url = response.content.decode('utf-8')
         return short_url
-    except Exception as e:
-        logging.log(level=logging.ERROR, msg=e)
-        return "Произошла ошибка. Попробуйте еще раз позже"
+    except Exception as error_text:
+        logging.log(level=logging.ERROR, msg=error_text)
+        return "У нас ошибка:( Пожалуйста, повторите вашу попытку позже:)"
